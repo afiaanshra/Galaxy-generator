@@ -15,46 +15,47 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 //Galaxy
-const parameters={}
-parameters.count=1000
-parameters.size=0.02
+
+ const parameters={}
+ parameters.count=1000
+ parameters.size=0.02
+
 const generateGalaxy=()=>
 {
     const geometry=new THREE.BufferGeometry()
-    console.log(geometry)
 
-    const position=new Float32Array(parameters.count*3)
+    const positions=new Float32Array(parameters.count*3)
 
-    for(let i=0;i<parameters.count;i++)
+    for(let  i=0; i<parameters.count;i++)
     {
-        const i3= i *3
-
-        position[i3*0]=Math.random()
-        position[i3*1]=Math.random()
-        position[i3*2]=Math.random()
-
+        const i3=i*3
+        positions[i3 +0]=Math.random()
+        positions[i3 +1]=Math.random()
+       positions[i3 +2]=Math.random()
     }
     geometry.setAttribute(
-        'position',
-        new THREE.BufferAttribute(position*3)
+        "positon",
+        new THREE.BufferAttribute(positions,3)
     )
-}
-generateGalaxy()
-
-//Material
-const material=new THREE.PointsMaterial({
+    //console.log(positions)
+   // console.log('hey afia its working')
+   
+   //Material
+   const material=new THREE.PointsMaterial({
     size:parameters,
     sizeAttenuation:true,
     depthWrite:false,
     blending:THREE.AdditiveBlending
+   })
 
-})
+   //Points
+   const points=new THREE.Points(geometry,material)
+   console.log(points)
+   scene.add(points)
+   console.log(points)
 
-//Points
-//const points=new THREE.Points(geometry,material)
-const points = new THREE.Points(geometry, material)
-scene.add(points)
-
+}
+generateGalaxy()
 /**
  * Sizes
  */
